@@ -46,3 +46,34 @@ A correção de Holm é aplicada conjuntamente às quatro correlações de QP1 e
 **Versão inicial (MVP):** permite analisar uma exportação real e substituir o arquivo sem modificar código. Os resultados na fase de coleta são **preliminares**. Antes da defesa, precisamos: auditar a extração final e os descartes, fazer codificação independente das respostas abertas, documentar eventuais desvios, decidir o controle de acesso à fonte para hospedagem e ensaiar a apresentação de dez minutos.
 
 Este estudo utiliza amostragem não probabilística por conveniência/bola de neve; não há inferência causal nem representatividade garantida.
+
+## Navegação e visualização (versão 0.2)
+
+O tema **Clean Blue** usa branco `#FFFFFF` como fundo, textos pretos `#000000`,
+barra lateral azul gelo `#F0F7FF` e realces azuis. A configuração está em
+`.streamlit/config.toml`. Os gráficos especificam explicitamente texto preto,
+fundo branco, eixos e bordas; `st.altair_chart(..., theme=None)` impede que a
+preferência visual do usuário substitua as configurações das visualizações.
+
+A navegação usa um seletor de página: **somente a página escolhida é renderizada**,
+reduzindo os gráficos enviados de uma vez ao navegador. Os filtros de perfil,
+experiência e uso de IA começam em **Todos**, sem etiquetas extensas.
+
+- **Visão geral:** contagens por perfil e experiência; Likert divergente de P01–P03 e R01–R03.
+- **QP1:** matriz 2×2 com os cortes pré-registrados `P >= 4` e `R >= 4`,
+  percentual e contagem em cada quadrante, `ρ` de Spearman e `p` Holm.
+  A distribuição detalhada de pares de escores continua disponível sob expansão.
+- **QP2:** barras 100% empilhadas com os cinco níveis de esforço, ranking de
+  respostas 4–5, medianas, Friedman, Kendall W e pós-hoc quando cabível.
+- **QP3:** gráfico horizontal dos três coeficientes `ρ` na escala de −1 a +1,
+  tabela de `n`, `p` bruto/ajustado e distribuições de confiança e verificação.
+- **Método:** descarte auditável, alfa de Cronbach e limitações.
+
+Percentuais e inferências são **preliminares durante a coleta**. A matriz da QP1
+usa “abaixo do corte” para valores menores que 4 — não afirma que são respostas
+negativas. Os dados individuais não são publicados no repositório.
+
+Para verificar a versão implantada no Streamlit Community Cloud, confirme em
+**Manage app → Settings → Repository / Branch** que a aplicação aponta para a
+branch `feat/dashboard-streamlit-mvp` (antes do merge) ou `main` (após o merge).
+Uma alteração na branch errada não é implantada naquele aplicativo.
