@@ -16,10 +16,20 @@ No painel, envie a exportação `.xlsx` ou `.csv` obtida em **Google Forms → R
 
 **Não suba respostas individuais ao GitHub.** O repositório é público; nem arquivos antigos devem conter os dados. O app só apresenta resultados agregados e não renderiza as respostas abertas. O arquivo carregado fica na sessão do Streamlit, mas o servidor que hospeda o painel ainda processa esses dados; use um ambiente confiável e configure controle de acesso antes de hospedar uma versão pública ligada à planilha oficial.
 
+## Aparência e publicação no Streamlit
+
+O tema oficial está em `.streamlit/config.toml`: fundo claro, texto escuro e barra lateral azul-marinho. Os gráficos são feitos com **Altair/Vega-Lite**, sem a dependência do módulo JavaScript `PlotlyChart` que falhou na primeira implantação.
+
+Ao publicar uma alteração de tema, o Streamlit Cloud pode precisar de reinicialização do app. Se a tela ainda mostrar arquivos de JavaScript de uma versão anterior, use **Ctrl+Shift+R** no navegador; caso persista, reinicie o aplicativo pelo painel **Manage app**.
+
+A branch de desenvolvimento é `feat/dashboard-streamlit-mvp`. O deploy pode apontar diretamente para ela, antes do merge na `main`.
+
 ## Organização
 
 - `app.py`: interface, filtros, gráficos e indicadores.
 - `src/analysis.py`: validação de elegibilidade, escalas, confiabilidade e testes estatísticos.
+- `src/charts.py`: gráficos Altair e paleta de cores para dados agregados.
+- `.streamlit/config.toml`: tema e cores de alto contraste.
 - `tests/test_analysis.py`: testes automatizados com dados artificiais **somente no código de testes**, não usados como resultados.
 - `data/`: espaço local para exportações reais, ignorado pelo Git.
 
