@@ -1,0 +1,16 @@
+# Respostas reais e dados identificáveis não devem ir para GitHub
+/data/*
+!/data/.gitkeep
+*.csv
+*.xlsx
+*.xls
+*.parquet
+*.jsonl
+*.pickle
+.env
+.streamlit/secrets.toml
+__pycache__/
+.pytest_cache/
+.venv/
+venv/
+.DS_Store
