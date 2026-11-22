@@ -36,7 +36,7 @@ st.markdown("""
     background-color: #FFFFFF !important;
     color: #000000 !important;
 }
-.block-container {max-width: 1320px; padding-top: 2.0rem; padding-bottom: 3rem;}
+.block-container {max-width: 1320px; padding-top: 2.75rem; padding-bottom: 3rem;}
 [data-testid="stMain"] h1, [data-testid="stMain"] h2,
 [data-testid="stMain"] h3, [data-testid="stMain"] p,
 [data-testid="stMain"] label, [data-testid="stMain"] .stCaption {
@@ -44,7 +44,7 @@ st.markdown("""
 }
 h1, h2, h3 {letter-spacing: -.025em;}
 h1 {font-size: clamp(1.8rem, 2.6vw, 2.35rem) !important;}
-.eyebrow {font-weight: 750; letter-spacing: .09em; font-size: .81rem; color:#1D4ED8;}
+.eyebrow {display:block; font-weight:750; letter-spacing:.09em; font-size:.81rem; line-height:1.6; padding:.25rem 0; margin:0; overflow:visible; color:#1D4ED8;}
 [data-testid="stMetric"] {
     background: #FFFFFF !important;
     border: 1px solid #CBD5E1 !important;
@@ -195,7 +195,7 @@ for key, value in selected.items():
 subset = valid.loc[mask].copy()
 scored, meta = construct_scores(subset)
 
-st.markdown('<p class="eyebrow">SURVEY · RESULTADOS PRELIMINARES</p>', unsafe_allow_html=True)
+st.markdown('<div class="eyebrow">SURVEY · RESULTADOS FINAIS</div>', unsafe_allow_html=True)
 st.title("O paradoxo da produtividade com IA")
 st.caption("Produtividade percebida, retrabalho e confiança no código gerado por IA")
 if len(valid) < 50:
