@@ -1,6 +1,6 @@
 # Codificação independente das respostas abertas — OA01
 
-O pré-registro (seção 5) determinou **duas codificações humanas independentes**, discussão de discordâncias e categorias finais. A criação deste documento **não equivale à execução da codificação**.
+O pré-registro (seção 5) determinou **duas codificações humanas independentes**, discussão de discordâncias e categorias finais. **Situação final informada pelo grupo:** Islayder e Bárbara atribuíram as mesmas categorias às quatro respostas não vazias, sem divergências. Os cadernos individuais não foram anexados, portanto a independência foi declarada pelos participantes, não auditada pelo assistente.
 
 ## Preparação (privada, fora do GitHub)
 
@@ -39,3 +39,17 @@ Preencher as colunas T1–T7 com 1 (categoria presente) ou 0 (ausente). Registra
 - Se a codificação não for concluída, declarar a limitação em vez de inventar resultados.
 
 Não alterar o protocolo original nem forjar registros de segunda leitura.
+
+## Resultado consensual (4 respostas válidas não vazias)
+
+| ID anonimizado | Categorias finais |
+|---|---|
+| SV001 | T1, T7 |
+| SV003 | T1, T3, T5 |
+| SV015 | T1 |
+| SV023 | T1, T5, T7 |
+
+Frequências: **T1=4; T2=0; T3=1; T4=0; T5=2; T6=0; T7=2.**
+As categorias são multirrótulo; no caso SV001, “agilidade” foi interpretada como aceleração (T1), e T7 cobre confiabilidade/qualidade. **Divergências relatadas: 0 de 4.** Nenhuma reconciliação foi necessária.
+
+A amostra qualitativa é muito pequena (4 relatos opcionais); não permite generalização. A versão final do relatório/ZIP traz as contagens e o registro do consenso, sem expor os textos originais.
