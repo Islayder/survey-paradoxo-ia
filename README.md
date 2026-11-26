@@ -41,11 +41,19 @@ A branch de desenvolvimento é `feat/dashboard-streamlit-mvp`. O deploy pode apo
 
 A correção de Holm é aplicada conjuntamente às quatro correlações de QP1 e QP3. Os construtos P/R/C são médias dos três itens **somente se** alfa de Cronbach ≥ 0,70; em caso contrário usam-se os representantes P03/R02/C01 definidos antes da coleta. "Não se aplica" é ausente legítimo nos itens de esforço; E05 igual a zero **não** invalida resposta. Cada registro recebe um único motivo principal de exclusão, seguindo precedência documentada no código.
 
-## Estado e próximos passos
+## Estado da coleta e condições para a defesa
 
-**Versão inicial (MVP):** permite analisar uma exportação real e substituir o arquivo sem modificar código. Os resultados na fase de coleta são **preliminares**. Antes da defesa, precisamos: auditar a extração final e os descartes, fazer codificação independente das respostas abertas, documentar eventuais desvios, decidir o controle de acesso à fonte para hospedagem e ensaiar a apresentação de dez minutos.
+A coleta oficial foi encerrada em **22/11/2026**. A exportação oficial auditada contém **60 respostas**, **50 válidas** e **10 descartadas** (7 por AT01 e 3 por E01). O grupo atual é **Islayder, Bárbara e Vinícius**; o pré-registro original, com cinco nomes, permanece imutável e a alteração administrativa consta na página de metodologia.
 
-Este estudo utiliza amostragem não probabilística por conveniência/bola de neve; não há inferência causal nem representatividade garantida.
+Os indicadores são **fixados usando a amostra completa de 50 válidas**, e **só depois** os filtros E01/E04/E05 selecionam participantes. Isso evita que o alfa de Cronbach de um subgrupo mude a definição da variável durante a defesa. Testes recalculados por segmento devem ser interpretados como **exploratórios**, em especial se o n for pequeno.
+
+A **margem nominal para proporções**, calculada pela fórmula do enunciado com n=50, p=0,5 e nível nominal de 95%, é **±13,9 pontos percentuais**. Por ser amostragem de conveniência/bola de neve, não constitui margem de erro inferencial garantida nem representa IC dos coeficientes de Spearman.
+
+**Ainda exigem ação humana e evidência antes da entrega:** capturas datadas da divulgação, codificação independente/consenso de OA01, autorização se necessária para a alteração de integrantes e ensaio da defesa. Consulte [guia de evidências e demonstração](docs/ENTREGA_E_EVIDENCIAS.md) e [protocolo de codificação da OA01](docs/CODIFICACAO_OA01.md).
+
+**Importante para demonstrar:** o link público carrega a interface, mas **não traz a base oficial embutida**. Uma pessoa do grupo deve carregar o CSV/XLSX original autorizado pela barra lateral no ambiente confiável da apresentação. O arquivo bruto não deve ser adicionado ao GitHub público; não se deve inferir que o professor verá os gráficos automaticamente ao apenas abrir o link.
+
+Este estudo não mede produtividade objetiva, não permite inferência causal e não garante representatividade.
 
 ## Navegação e visualização (versão 0.2)
 
@@ -61,13 +69,13 @@ experiência e uso de IA começam em **Todos**, sem etiquetas extensas.
 
 - **Visão geral:** contagens por perfil e experiência; Likert divergente de P01–P03 e R01–R03.
 - **QP1:** matriz 2×2 com os cortes pré-registrados `P >= 4` e `R >= 4`,
-  percentual e contagem em cada quadrante, `ρ` de Spearman e `p` Holm.
+  percentual e contagem em cada quadrante, `ρ` de Spearman, `p` bruto e `p` Holm, n efetivo e conclusão da significância.
   A distribuição detalhada de pares de escores continua disponível sob expansão.
 - **QP2:** barras 100% empilhadas com os cinco níveis de esforço, ranking de
   respostas 4–5, medianas, Friedman, Kendall W e pós-hoc quando cabível.
 - **QP3:** gráfico horizontal dos três coeficientes `ρ` na escala de −1 a +1,
   tabela de `n`, `p` bruto/ajustado e distribuições de confiança e verificação.
-- **Método:** descarte auditável, alfa de Cronbach e limitações.
+- **Método:** descarte auditável, alfa de Cronbach fixado antes dos filtros, plano versus execução, evidências pendentes e limitações.
 
 Percentuais e inferências são **preliminares durante a coleta**. A matriz da QP1
 usa “abaixo do corte” para valores menores que 4 — não afirma que são respostas
