@@ -58,9 +58,9 @@ A correção de Holm foi aplicada à **família de quatro correlações** (uma Q
 
 ## OA01 e evidências
 
-A questão aberta é opcional: apenas **4 respostas não vazias entre os 50 válidos**. A codificação por **dois integrantes independentes e consenso** permanece uma tarefa humana a completar. Foram preparados cadernos privados separados, não publicados neste repositório.
+A questão aberta é opcional: houve **4 respostas não vazias entre os 50 válidos**. Conforme declaração do grupo, **Islayder e Bárbara** classificaram os quatro relatos separadamente e informaram **classificações idênticas, sem divergências**. O consenso registrado é **T1=4, T2=0, T3=1, T4=0, T5=2, T6=0 e T7=2**; respostas podiam receber vários códigos. O resumo agregado está no PDF final e no CSV de consenso do ZIP de entrega. Os cadernos individuais não foram anexados; textos OA01 são mantidos restritos. Quatro relatos não permitem generalização.
 
-A exportação bruta com timestamps e a captura do Forms encerrado em 22/11 são preservadas fora deste repositório; as capturas datadas dos **canais de divulgação** ainda precisam ser reunidas e verificadas pelo grupo.
+A exportação bruta com timestamps, a captura do Forms encerrado em 22/11 e **quatro capturas datadas dos canais de divulgação** (13 e 15/11) foram incluídas no pacote restrito do Canvas; o GitHub mantém apenas documentação agregada. Dados individuais de OA01 continuam fora do repositório.
 
 ## Pontos para a defesa
 
