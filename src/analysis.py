@@ -118,6 +118,16 @@ def construct_scores(df: pd.DataFrame) -> tuple[pd.DataFrame, dict[str, dict[str
     return out, meta
 
 
+def score_filtered_with_global_alpha(valid: pd.DataFrame, mask: pd.Series
+                                     ) -> tuple[pd.DataFrame, dict[str, dict[str, Any]]]:
+    """Fixa alfa/fallback na amostra completa antes de segmentar.
+
+    A inferência do segmento pode mudar, mas a definição dos construtos NÃO.
+    """
+    scored_all, meta = construct_scores(valid)
+    return scored_all.loc[mask].copy(), meta
+
+
 def holm(pvalues: list[float]) -> list[float]:
     """Ajuste step-down de Holm, ignorando testes não calculáveis."""
     result = [np.nan] * len(pvalues)
