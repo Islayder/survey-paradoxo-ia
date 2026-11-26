@@ -49,7 +49,9 @@ Os indicadores são **fixados usando a amostra completa de 50 válidas**, e **s�
 
 A **margem nominal para proporções**, calculada pela fórmula do enunciado com n=50, p=0,5 e nível nominal de 95%, é **±13,9 pontos percentuais**. Por ser amostragem de conveniência/bola de neve, não constitui margem de erro inferencial garantida nem representa IC dos coeficientes de Spearman.
 
-Os resultados auditados e as conclusões da base final estão em [Resultados finais](docs/RESULTADOS_FINAIS.md).\n\n**Ainda exigem ação humana e evidência antes da entrega:** capturas datadas da divulgação, codificação independente/consenso de OA01, autorização se necessária para a alteração de integrantes e ensaio da defesa. Consulte [guia de evidências e demonstração](docs/ENTREGA_E_EVIDENCIAS.md) e [protocolo de codificação da OA01](docs/CODIFICACAO_OA01.md).
+Os resultados auditados e as conclusões da base final estão em [Resultados finais](docs/RESULTADOS_FINAIS.md).
+
+**Ainda exigem ação humana e evidência antes da entrega:** capturas datadas da divulgação, codificação independente/consenso de OA01, autorização se necessária para a alteração de integrantes e ensaio da defesa. Consulte [guia de evidências e demonstração](docs/ENTREGA_E_EVIDENCIAS.md) e [protocolo de codificação da OA01](docs/CODIFICACAO_OA01.md).
 
 **Importante para demonstrar:** o link público carrega a interface, mas **não traz a base oficial embutida**. Uma pessoa do grupo deve carregar o CSV/XLSX original autorizado pela barra lateral no ambiente confiável da apresentação. O arquivo bruto não deve ser adicionado ao GitHub público; não se deve inferir que o professor verá os gráficos automaticamente ao apenas abrir o link.
 
