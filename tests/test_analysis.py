@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 from src.analysis import (score, prepare, construct_scores, holm,
-                          coexistence, effort_analysis, correlations)
+                          coexistence, effort_analysis, correlations, score_filtered_with_global_alpha)
 
 
 def sample(n=5):
@@ -52,3 +52,39 @@ def test_fallback_if_alpha_undefined():
     detail, global_test, posthoc = effort_analysis(scored)
     assert len(detail) == 4
     assert np.isnan(global_test["p"])
+
+
+def test_filter_keeps_construct_definition_from_full_sample():
+    """Um segmento não pode trocar o fallback P03 pela média de P01–P03."""
+    raw = sample(10)
+    triplets = (
+        [(i, i, min(5, i + 1)) for i in range(1, 6)] +
+        [(i, 6 - i, 6 - i) for i in range(1, 6)]
+    )
+    for idx, (p01, p02, p03) in enumerate(triplets):
+        for code, value in [("P01", p01), ("P02", p02), ("P03", p03)]:
+            raw.loc[idx, code + " — Pergunta"] = f"{value} — Resposta"
+    valid = prepare(raw)
+    mask = pd.Series([True] * 5 + [False] * 5, index=valid.index)
+    selected, meta = score_filtered_with_global_alpha(valid, mask)
+    separately_scored, subgroup_meta = construct_scores(valid.loc[mask])
+
+    assert meta["P"]["alpha"] < 0.70
+    assert not meta["P"]["composite"]
+    assert subgroup_meta["P"]["alpha"] >= 0.70
+    assert subgroup_meta["P"]["composite"]
+    assert selected["P"].tolist() == [2., 3., 4., 5., 5.]  # P03 fixo
+    assert not np.allclose(selected["P"], separately_scored["P"].to_numpy())
+    assert len(selected) == 5
+
+
+def test_nominal_margin_reference_50():
+    """Verifica a fórmula do enunciado para a amostra completa."""
+    import math
+    e_pp = 100 * 1.96 * math.sqrt(0.5 * (1 - 0.5) / 50)
+    assert round(e_pp, 1) == 13.9
+
+
+def test_holm_not_confused_with_effect_size():
+    # Holm pode chegar a 1 mesmo quando o rho estimado não é zero.
+    assert holm([.2604, .40, .60, .80])[0] == 1.0
