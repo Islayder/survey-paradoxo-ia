@@ -414,11 +414,11 @@ else:
                                 "Alteração administrativa; documentar autorização, se exigida."},
         {"Dimensão": "Questão aberta OA01",
          "Pré-registro": "Codificação independente por 2 integrantes e consenso",
-         "Execução / observação": "Codificação humana ainda não homologada no dashboard; "
-                                "registrar planilhas e consenso fora do repositório público."},
+         "Execução / observação": "Conforme relato do grupo: Islayder e Bárbara atribuíram os mesmos códigos aos 4 relatos (0 divergências)."
+                                " Resultado agregado documentado; cadernos individuais não anexados."},
         {"Dimensão": "Divulgação",
          "Pré-registro": "Canais acadêmicos/profissionais; registros datados",
-         "Execução / observação": "Evidências devem ser apresentadas e auditadas pelo grupo."},
+         "Execução / observação": "4 capturas datadas de 13 e 15/11 anexadas ao ZIP de entrega."},
     ])
     st.dataframe(plano_exec, hide_index=True, use_container_width=True)
     st.caption("O pré-registro original permanece intacto. Pendências documentais não são tratadas como comprovadas.")
@@ -426,8 +426,8 @@ else:
         st.markdown("""
         - **Arquivo bruto privado:** exportação oficial com data/hora de cada resposta e todos os descartes.
         - **Forms:** captura datada de 22/11/2026 com 60 respostas e coleta encerrada.
-        - **Canais de divulgação:** reunir capturas datadas de convites/publicações; não incluir nomes ou contatos pessoais.
-        - **OA01:** dois codificadores registram categorias independentemente; depois documentam consenso e divergências.
+        - **Canais de divulgação:** quatro capturas datadas incluídas no relatório/ZIP de entrega, com dados de terceiros ocultados.
+        - **OA01:** Islayder e Bárbara relataram classificações coincidentes para os 4 relatos. Frequências finais: T1=4; T2=0; T3=1; T4=0; T5=2; T6=0; T7=2. Consenso registrado; cadernos individuais não anexados.
         - **Demonstração ao vivo:** usar o CSV original em ambiente autorizado; realizar upload pela barra lateral.
           O repositório GitHub público NÃO contém respostas individuais.
         - **Mudança de cenário:** alterar filtros, conferir n efetivo e explicar impactos na inferência.
@@ -447,7 +447,7 @@ else:
     st.caption(
         "Dados brutos e respostas abertas não são incorporados ao repositório público. "
         "Composição atual do grupo: Islayder, Bárbara e Vinícius. "
-        "Documentos de divulgação e codificação OA01 devem ser preservados em pasta privada."
+        "Evidências e resultado agregado da OA01 estão no relatório do ZIP. Preservar os textos originais e eventuais registros individuais em pasta privada."
     )
 
 st.divider()
