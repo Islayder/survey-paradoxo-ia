@@ -51,7 +51,7 @@ A **margem nominal para proporções**, calculada pela fórmula do enunciado com
 
 Os resultados auditados e as conclusões da base final estão em [Resultados finais](docs/RESULTADOS_FINAIS.md).
 
-**Ainda exigem ação humana e evidência antes da entrega:** capturas datadas da divulgação, codificação independente/consenso de OA01, autorização se necessária para a alteração de integrantes e ensaio da defesa. Consulte [guia de evidências e demonstração](docs/ENTREGA_E_EVIDENCIAS.md) e [protocolo de codificação da OA01](docs/CODIFICACAO_OA01.md).
+**Evidências documentadas no pacote do Canvas:** quatro capturas datadas da divulgação e consenso OA01 declarado por Islayder e Bárbara para quatro relatos, com zero divergências. **Permanecem verificações antes da defesa:** prazo/tipo de envio no Canvas, eventual autorização de mudança de integrantes, preservação dos cadernos individuais caso solicitados e ensaio da apresentação. Consulte [guia de evidências e demonstração](docs/ENTREGA_E_EVIDENCIAS.md) e [protocolo de codificação da OA01](docs/CODIFICACAO_OA01.md).
 
 **Importante para demonstrar:** o link público carrega a interface, mas **não traz a base oficial embutida**. Uma pessoa do grupo deve carregar o CSV/XLSX original autorizado pela barra lateral no ambiente confiável da apresentação. O arquivo bruto não deve ser adicionado ao GitHub público; não se deve inferir que o professor verá os gráficos automaticamente ao apenas abrir o link.
 
