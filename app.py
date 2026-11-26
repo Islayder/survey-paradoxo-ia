@@ -12,8 +12,8 @@ import pandas as pd
 import streamlit as st
 
 from src.analysis import (
-    ACTIVITY, VERIFY, coexistence, construct_scores, correlations,
-    effort_analysis, prepare,
+    ACTIVITY, VERIFY, coexistence, correlations,
+    effort_analysis, prepare, score_filtered_with_global_alpha,
 )
 from src.charts import (
     EFFORT, FREQUENCY, category_chart, correlation_chart, effort_chart,
@@ -200,8 +200,7 @@ for key, value in selected.items():
         mask &= valid[key].astype(str).eq(value)
 # A confiabilidade e os indicadores são definidos UMA VEZ na amostra válida completa.
 # Os filtros alteram apenas os participantes analisados, jamais o construto utilizado.
-scored_full, meta = construct_scores(valid)
-scored = scored_full.loc[mask].copy()
+scored, meta = score_filtered_with_global_alpha(valid, mask)
 
 st.markdown('<div class="eyebrow">SURVEY · RESULTADOS FINAIS</div>', unsafe_allow_html=True)
 st.title("O paradoxo da produtividade com IA")
