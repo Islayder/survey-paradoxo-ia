@@ -5,6 +5,7 @@ Visualizações são agregadas; testes e filtros preservam o protocolo da Parte 
 from __future__ import annotations
 
 import io
+import math
 from pathlib import Path
 
 import pandas as pd
@@ -122,6 +123,11 @@ def nformat(value, digits=3) -> str:
     return "—" if pd.isna(value) else f"{value:.{digits}f}".replace(".", ",")
 
 
+def margin_error_nominal(n: int) -> str:
+    """Referência teórica para proporções: 95%, p=0,5; NÃO é IC válido para conveniência."""
+    return "—" if n <= 0 else f"±{nformat(100 * 1.96 * math.sqrt(0.25 / n), 1)} p.p."
+
+
 def ordered_options(available: list[str], order: list[str]) -> list[str]:
     return [x for x in order if x in available] + sorted(x for x in available if x not in order)
 
@@ -192,21 +198,34 @@ mask = pd.Series(True, index=valid.index)
 for key, value in selected.items():
     if value is not None:
         mask &= valid[key].astype(str).eq(value)
-subset = valid.loc[mask].copy()
-scored, meta = construct_scores(subset)
+# A confiabilidade e os indicadores são definidos UMA VEZ na amostra válida completa.
+# Os filtros alteram apenas os participantes analisados, jamais o construto utilizado.
+scored_full, meta = construct_scores(valid)
+scored = scored_full.loc[mask].copy()
 
 st.markdown('<div class="eyebrow">SURVEY · RESULTADOS FINAIS</div>', unsafe_allow_html=True)
 st.title("O paradoxo da produtividade com IA")
 st.caption("Produtividade percebida, retrabalho e confiança no código gerado por IA")
 if len(valid) < 50:
-    st.info("Coleta em andamento: as análises são exploratórias até o encerramento e a auditoria final da amostra.")
+    st.warning("O arquivo carregado tem menos de 50 respostas válidas: os resultados não correspondem à amostra final pré-registrada.")
 
 k1, k2, k3, k4 = st.columns(4)
 k1.metric("Respostas recebidas", len(all_data), help="Base bruta, independentemente dos filtros")
 k2.metric("Respostas válidas", len(valid), help="Conforme critérios do protocolo")
 k3.metric("Descartadas", len(all_data) - len(valid))
 k4.metric("Amostra filtrada", len(scored), help="Participantes válidos após aplicar os filtros")
-st.progress(min(len(valid) / 50, 1.0), text=f"Meta da coleta: {len(valid)} de 50 respostas válidas")
+st.progress(min(len(valid) / 50, 1.0), text=f"Meta pré-registrada: {len(valid)} de 50 respostas válidas")
+st.caption(
+    f"**Margem de erro nominal para proporções (amostra completa): {margin_error_nominal(len(valid))}** "
+    f"(n={len(valid)}, nível nominal de 95%, p=0,5). Como a amostra é não probabilística, "
+    "não se trata de uma garantia de precisão ou representatividade. "
+    "O valor não é margem de erro dos coeficientes de correlação."
+)
+if len(scored) != len(valid):
+    st.caption(
+        f"**Segmento filtrado:** n={len(scored)}; referência nominal para proporções: "
+        f"{margin_error_nominal(len(scored))}. Inferências por segmento são exploratórias."
+    )
 
 st.divider()
 page = st.segmented_control("Navegação", options=PAGE_NAMES, default=PAGE_NAMES[0],
@@ -235,18 +254,29 @@ if page == "Visão geral":
     with st.container(border=True):
         st.markdown("**Retrabalho percebido (R01–R03)**")
         show_chart(likert_chart(scored, ["R01", "R02", "R03"],
-                                ["R01 · Modificar código", "R02 · Esforço de correção", "R03 · Economia de tempo"]))
+                                ["R01 · Modificar código", "R02 · Esforço de correção", "R03 · Redução da economia de tempo"]))
 
 elif page == "QP1 · Paradoxo":
     section_heading("QP1 · Produtividade percebida × retrabalho",
                     "Ganhos percebidos de produtividade coexistem com esforço de retrabalho?")
     both = coexistence(scored)
     test = correlations(scored).iloc[0]
-    a, b, c = st.columns(3)
+    a, b, c, d = st.columns(4)
     a.metric("Coexistência (P ≥ 4 e R ≥ 4)", f"{nformat(both['percent'], 1)}%",
              help=f"{both['total']} de {both['n']} respondentes com indicadores disponíveis")
     b.metric("Spearman (ρ)", nformat(test["rho"]))
-    c.metric("p ajustado por Holm", nformat(test["p_holm"], 4))
+    c.metric("p bruto · Spearman", nformat(test["p"], 4))
+    d.metric("p ajustado · Holm", nformat(test["p_holm"], 4))
+    if pd.notna(test["p_holm"]):
+        resultado_qp1 = ("Estatisticamente significativa" if test["p_holm"] <= 0.05
+                         else "Não estatisticamente significativa")
+        st.caption(
+            f"**Inferência QP1 (α = 0,05; n efetivo = {int(test['n'])}): "
+            f"{resultado_qp1}.** O sinal de ρ indica a direção e seu módulo a força "
+            "da associação monotônica; o p-valor não mede direção nem causalidade."
+        )
+    else:
+        st.caption("**Inferência QP1:** não calculável para o segmento selecionado.")
     with st.container(border=True):
         st.markdown("**Matriz de coexistência**")
         st.caption("Cada célula apresenta o percentual e a contagem de pessoas. Limiar ≥ 4 conforme pré-registro.")
@@ -267,6 +297,13 @@ elif page == "QP2 · Esforço":
     a.metric("Friedman (χ²)", nformat(global_test["friedman"]))
     b.metric("p global", nformat(global_test["p"], 4))
     c.metric("Kendall W", nformat(global_test["kendall_w"]))
+    if pd.notna(global_test["p"]):
+        conclusao_qp2 = ("diferença global estatisticamente significativa" if global_test["p"] <= 0.05
+                        else "diferença global não estatisticamente significativa")
+        st.caption(
+            f"**Inferência QP2 (α = 0,05; n pareado = {global_test['n_pareado']}):** "
+            f"{conclusao_qp2}. Kendall W é o tamanho de efeito global."
+        )
     with st.container(border=True):
         st.markdown("**Distribuição completa do esforço por atividade**")
         show_chart(ordinal_chart(scored, list(ACTIVITY), list(ACTIVITY.values()), levels=EFFORT),
@@ -298,6 +335,10 @@ elif page == "QP3 · Confiança":
             "comparacao": "Associação", "n": "n efetivo", "rho": "Spearman ρ",
             "p": "p bruto", "p_holm": "p Holm",
         })
+        summary["Significância (α=0,05)"] = summary["p Holm"].map(
+            lambda p: "Não calculável" if pd.isna(p) else
+            ("Significativa" if p <= 0.05 else "Não significativa")
+        )
         st.dataframe(summary, hide_index=True, use_container_width=True,
                      column_config={
                          "Spearman ρ": st.column_config.NumberColumn(format="%.3f"),
@@ -336,7 +377,62 @@ else:
             st.dataframe(alpha_data, hide_index=True, use_container_width=True,
                          column_config={
                              "Alfa de Cronbach": st.column_config.NumberColumn(format="%.3f")})
-            st.caption("Com alfa < 0,70, é usado o indicador alternativo definido antes da coleta.")
+            st.caption(
+                "Alfas calculados na amostra válida COMPLETA, antes dos filtros; "
+                "o indicador aplicado permanece fixo em todos os segmentos. "
+                "Com alfa < 0,70, usa-se o item alternativo pré-registrado."
+            )
+    st.markdown("**Planejamento pré-registrado × execução observada**")
+    # Datas extraídas dos carimbos do arquivo carregado (sem exibir respostas individuais).
+    dates_txt = raw.iloc[:, 0].astype(str).str.extract(
+        r"(\d{4}[-/]\d{2}[-/]\d{2})", expand=False
+    )
+    dates = pd.to_datetime(dates_txt, errors="coerce")
+    if dates.notna().any():
+        janela_real = (
+            f"{dates.min().strftime('%d/%m/%Y')} a "
+            f"{dates.max().strftime('%d/%m/%Y')}"
+        )
+    else:
+        janela_real = "Carimbos não interpretáveis nesta exportação"
+    plano_exec = pd.DataFrame([
+        {"Dimensão": "Período da coleta",
+         "Pré-registro": "13 a 22/11/2026",
+         "Execução / observação": janela_real},
+        {"Dimensão": "Amostra",
+         "Pré-registro": "Meta de 50 respostas válidas",
+         "Execução / observação": f"{len(all_data)} recebidas; {len(valid)} válidas; "
+                                f"{len(all_data) - len(valid)} excluídas"},
+        {"Dimensão": "Triagem",
+         "Pré-registro": "TCLE, E01–E03, AT01 e completude",
+         "Execução / observação": "Regras aplicadas; motivos na tabela acima"},
+        {"Dimensão": "Indicadores e testes",
+         "Pré-registro": "Alfa ≥ 0,70; fallback P03/R02/C01; Spearman/Friedman/Holm",
+         "Execução / observação": "Implementados na base completa; segmentação sem redefinir indicador"},
+        {"Dimensão": "Composição do grupo",
+         "Pré-registro": "5 nomes na versão original",
+         "Execução / observação": "3 integrantes: Islayder, Bárbara e Vinícius. "
+                                "Alteração administrativa; documentar autorização, se exigida."},
+        {"Dimensão": "Questão aberta OA01",
+         "Pré-registro": "Codificação independente por 2 integrantes e consenso",
+         "Execução / observação": "Codificação humana ainda não homologada no dashboard; "
+                                "registrar planilhas e consenso fora do repositório público."},
+        {"Dimensão": "Divulgação",
+         "Pré-registro": "Canais acadêmicos/profissionais; registros datados",
+         "Execução / observação": "Evidências devem ser apresentadas e auditadas pelo grupo."},
+    ])
+    st.dataframe(plano_exec, hide_index=True, use_container_width=True)
+    st.caption("O pré-registro original permanece intacto. Pendências documentais não são tratadas como comprovadas.")
+    with st.expander("Evidências da coleta e roteiro da defesa", expanded=False):
+        st.markdown("""
+        - **Arquivo bruto privado:** exportação oficial com data/hora de cada resposta e todos os descartes.
+        - **Forms:** captura datada de 22/11/2026 com 60 respostas e coleta encerrada.
+        - **Canais de divulgação:** reunir capturas datadas de convites/publicações; não incluir nomes ou contatos pessoais.
+        - **OA01:** dois codificadores registram categorias independentemente; depois documentam consenso e divergências.
+        - **Demonstração ao vivo:** usar o CSV original em ambiente autorizado; realizar upload pela barra lateral.
+          O repositório GitHub público NÃO contém respostas individuais.
+        - **Mudança de cenário:** alterar filtros, conferir n efetivo e explicar impactos na inferência.
+        """)
     with st.expander("Critérios de seleção, testes e limitações", expanded=True):
         st.markdown("""
         - Participantes adultos, estudantes de TI ou profissionais, com programação prática e uso de IA nos últimos seis meses.
@@ -349,8 +445,11 @@ else:
         """)
     st.warning("Amostragem não probabilística (conveniência/bola de neve). "
                "Resultados descrevem esta amostra; não garantem representatividade nem permitem inferir causalidade.")
-    st.caption("Dados brutos e respostas abertas não são incorporados ao repositório. "
-               "Alterações em relação ao protocolo devem ser registradas na entrega final.")
+    st.caption(
+        "Dados brutos e respostas abertas não são incorporados ao repositório público. "
+        "Composição atual do grupo: Islayder, Bárbara e Vinícius. "
+        "Documentos de divulgação e codificação OA01 devem ser preservados em pasta privada."
+    )
 
 st.divider()
 st.caption("PUC Minas · Medição e Experimentação em Engenharia de Software · Survey pré-registrado · 2026/2")
