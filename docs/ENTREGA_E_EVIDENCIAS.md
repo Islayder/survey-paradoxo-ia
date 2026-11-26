@@ -19,9 +19,9 @@
 
 - [x] **Planilha bruta de respostas** com timestamp, guardada em ambiente privado da equipe. Arquivo de referência: exportação oficial de 22/11/2026; não versionar no GitHub.
 - [x] **Captura do painel Google Forms encerrado**, feita em 22/11, mostrando 60 respostas e 'não está aceitando respostas'.
-- [ ] **Capturas datadas de convites/publicações** dos canais usados (por exemplo, WhatsApp, LinkedIn ou comunidade de TI). Excluir/ocultar números telefônicos, nomes e fotos de terceiros.
+- [x] **Quatro capturas datadas de convites/publicações** dos canais usados (13 e 15/11), incluídas no relatório/ZIP do Canvas com dados de terceiros ocultados.
 - [ ] **Comprovação da entrega do pré-registro antes da primeira resposta oficial** (registro de envio no Canvas ou commit datado e verificável).
-- [ ] **Codificação independente da OA01 por dois integrantes**, mais tabela de consenso. Manual: [CODIFICACAO_OA01.md](CODIFICACAO_OA01.md).
+- [x] **OA01: consenso registrado** — Islayder e Bárbara informaram codificações iguais para os 4 relatos, sem divergências; frequências e método documentados em [CODIFICACAO_OA01.md](CODIFICACAO_OA01.md). Os cadernos individuais não foram anexados.
 - [ ] **Confirmar se o Canvas pede arquivo, link ou ambos** e enviar no prazo exibido na tarefa, não apenas no cronograma.
 - [ ] **Preparar um computador/ambiente confiável com a exportação autorizada** para a demonstração.
 - [ ] **Confirmar com a docência, se necessário, a alteração de cinco nomes pré-registrados para três integrantes atuais.**
