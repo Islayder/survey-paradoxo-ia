@@ -18,7 +18,7 @@ No painel, envie a exportação `.xlsx` ou `.csv` obtida em **Google Forms → R
 
 ## Aparência e publicação no Streamlit
 
-O tema oficial está em `.streamlit/config.toml`: fundo claro, texto escuro e barra lateral azul-marinho. Os gráficos são feitos com **Altair/Vega-Lite**, sem a dependência do módulo JavaScript `PlotlyChart` que falhou na primeira implantação.
+O tema oficial está em `.streamlit/config.toml`: fundo branco, texto preto e barra lateral azul-clara. Os gráficos são feitos com **Altair/Vega-Lite**, sem a dependência do módulo JavaScript `PlotlyChart` que falhou na primeira implantação.
 
 Ao publicar uma alteração de tema, o Streamlit Cloud pode precisar de reinicialização do app. Se a tela ainda mostrar arquivos de JavaScript de uma versão anterior, use **Ctrl+Shift+R** no navegador; caso persista, reinicie o aplicativo pelo painel **Manage app**.
 
@@ -79,7 +79,7 @@ experiência e uso de IA começam em **Todos**, sem etiquetas extensas.
   tabela de `n`, `p` bruto/ajustado e distribuições de confiança e verificação.
 - **Método:** descarte auditável, alfa de Cronbach fixado antes dos filtros, plano versus execução, evidências pendentes e limitações.
 
-Percentuais e inferências são **preliminares durante a coleta**. A matriz da QP1
+Os valores apresentados com a **exportação oficial congelada em 22/11/2026** correspondem aos resultados finais desta amostra; ao carregar outro arquivo, as estimativas refletirão a fonte selecionada. A matriz da QP1
 usa “abaixo do corte” para valores menores que 4 — não afirma que são respostas
 negativas. Os dados individuais não são publicados no repositório.
 
