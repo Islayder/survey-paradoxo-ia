@@ -88,3 +88,18 @@ def test_nominal_margin_reference_50():
 def test_holm_not_confused_with_effect_size():
     # Holm pode chegar a 1 mesmo quando o rho estimado não é zero.
     assert holm([.2604, .40, .60, .80])[0] == 1.0
+
+
+
+def test_dashboard_source_compiles_and_uses_global_alpha():
+    """Evita regressões silenciosas no app, que não é importado nos testes unitários."""
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    app_source = (root / "app.py").read_text(encoding="utf-8")
+    chart_source = (root / "src" / "charts.py").read_text(encoding="utf-8")
+    compile(app_source, str(root / "app.py"), "exec")
+    compile(chart_source, str(root / "src" / "charts.py"), "exec")
+    assert "score_filtered_with_global_alpha(valid, mask)" in app_source
+    assert "p bruto · Spearman" in app_source
+    assert "Margem de erro nominal" in app_source
+    assert "R03 · Redução da economia de tempo" in app_source
